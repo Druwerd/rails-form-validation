@@ -12,7 +12,7 @@
     <%= f.password_field :password_confirmation, value: user.password_confirmation, data: { action: "form-validation#handleChange" } %>
   </div>
   <p>
-    <%= f.submit disabled: user.errors.any? %>
+    <%= f.submit %>
   </p>
   <div id="error_explanation">
     <%= render 'form_errors', user: user %>
