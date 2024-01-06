@@ -1,0 +1,26 @@
+<%= form_with(model: user, data: { form_validation_target: "form" }) do |f| %>
+  <div>
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div>
+    <%= f.label :password %><br>
+    <%= f.password_field :password, value: user.password, data: { action: "form-validation#handleChange" } %>
+  </div>
+  <div>
+    <%= f.label :password_confirmation %><br>
+    <%= f.password_field :password_confirmation, value: user.password_confirmation, data: { action: "form-validation#handleChange" } %>
+  </div>
+  <p>
+    <%= f.submit disabled: user.errors.any? %>
+  </p>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>
