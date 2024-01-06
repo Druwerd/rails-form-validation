@@ -4,7 +4,7 @@ class FormValidations::UsersController < UsersController
     @user.valid?
     respond_to do |format|
       format.text do
-        render partial: "users/form", locals: { user: @user }, formats: [:html]
+        render partial: "users/form_errors", locals: { user: @user }, formats: [:html]
       end
     end
   end
@@ -14,7 +14,7 @@ class FormValidations::UsersController < UsersController
     @user.validate
     respond_to do |format|
       format.text do
-        render partial: "users/form", locals: { user: @user }, formats: [:html]
+        render partial: "users/form_errors", locals: { user: @user }, formats: [:html]
       end
     end
   end

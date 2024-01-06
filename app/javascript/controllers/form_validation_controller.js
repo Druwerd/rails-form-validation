@@ -12,14 +12,11 @@ export default class extends Controller {
   static values = { url: String };
 
   initialize() {
-    this.handleChange = debounce(this.handleChange, 1000).bind(this);
+    this.handleChange = debounce(this.handleChange, 500).bind(this);
   }
 
   handleChange(event) {
-    console.log(this.formTarget, this.urlValue)
     const formData = new FormData(this.formTarget)
-    console.log(formData)
-
     let input = event.target;
     fetch(this.urlValue, {
       method: "POST",
@@ -30,7 +27,7 @@ export default class extends Controller {
     })
     .then(response => response.text())
     .then((html) => {
-      this.outputTarget.innerHTML = html
+      document.querySelector('#error_explanation').innerHTML = html
       input = document.getElementById(input.id);
       this.moveCursorToEnd(input);
     })
