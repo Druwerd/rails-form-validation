@@ -1,6 +1,4 @@
-// import Rails from "@rails/ujs";
 import { Controller } from "@hotwired/stimulus"
-// import { Turbo } from "@hotwired/turbo-rails";
 const debounce = require("lodash.debounce");
 
 // Connects to data-controller="form-validation"
@@ -12,7 +10,7 @@ export default class extends Controller {
   static values = { url: String };
 
   initialize() {
-    this.handleChange = debounce(this.handleChange, 500).bind(this);
+    this.handleChange = debounce(this.handleChange, 100).bind(this);
   }
 
   handleChange(event) {
@@ -31,15 +29,6 @@ export default class extends Controller {
       input = document.getElementById(input.id);
       this.moveCursorToEnd(input);
     })
-    // alert("foo")
-    // Rails.ajax({
-    //   url: this.urlValue,
-    //   type: "POST",
-    //   data: new FormData(this.formTarget),
-    //   success: (data) => {
-    //     this.outputTarget.innerHTML = data;
-    //   },
-    // });
   }
 
   // https://css-tricks.com/snippets/javascript/move-cursor-to-end-of-input/

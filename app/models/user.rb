@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   ALLOWED_PASSWORD_SPECIAL_CHARS = %w(! @ # $ % ^ & * _ + =).freeze
 
-  has_secure_password :password, validations: true
+
 
   validates :email, presence: true, uniqueness: true
   validates :password, length: { minimum: 12 }
@@ -12,4 +12,6 @@ class User < ApplicationRecord
     with: /[#{ALLOWED_PASSWORD_SPECIAL_CHARS.join}]{1,}/,
     message: "must contain at least one special character: #{ALLOWED_PASSWORD_SPECIAL_CHARS.join(' ')}"
   }
+
+  has_secure_password :password, validations: true
 end

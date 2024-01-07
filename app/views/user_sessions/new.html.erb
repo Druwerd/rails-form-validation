@@ -1,14 +1,16 @@
 <h1>Login page</h1>
-<%= form_with model: @user, url: user_sessions_path do |f| %>
-  <div>
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div>
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
-  </div>
-  <p>
-    <%= f.submit 'Login' %>
-  </p>
-<% end %>
+<div class="form-container">
+  <%= form_with model: @user, url: user_sessions_path do |f| %>
+    <div class="form-group">
+      <%= f.label :email %><br>
+      <%= f.text_field :email, value: @user.email.presence, class: 'form-control', required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :password %><br>
+      <%= f.password_field :password, class: 'form-control', required: true %>
+    </div>
+    <p>
+      <%= f.submit 'Login', class: 'btn btn-primary' %>
+    </p>
+  <% end %>
+</div>
