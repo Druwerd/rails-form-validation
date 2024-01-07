@@ -17,8 +17,12 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
-    redirect_to root_path
+    if current_user.blank? || current_user.id != params[:id].to_i
+      render plain: '401 Unauthorized', status: :unauthorized
+    else
+      session[:user_id] = nil
+      redirect_to root_path
+    end
   end
 
   private
