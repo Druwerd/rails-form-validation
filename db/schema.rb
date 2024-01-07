@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_06_002528) do
     t.string "password_confirmation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end

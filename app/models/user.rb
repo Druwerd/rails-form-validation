@@ -1,9 +1,8 @@
 class User < ApplicationRecord
   ALLOWED_PASSWORD_SPECIAL_CHARS = %w(! @ # $ % ^ & * _ + =).freeze
 
-
-
   validates :email, presence: true, uniqueness: true
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { minimum: 12 }
   validates :password, format: { with: /[a-z]{1,}/, message: "must contain at least one lowercase letter" }
   validates :password, format: { with: /[A-Z]{1,}/, message: "must contain at least one uppercase letter" }

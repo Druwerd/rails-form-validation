@@ -1,8 +1,4 @@
 class UsersController < ApplicationController
-  def index
-    @users = User.all
-  end
-
   def new
     @user = User.new
   end
@@ -11,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      flash[:success] = "User created successfully"
+      flash[:success] = "User created"
       session[:user_id] = @user.id
       redirect_to root_path
     else
