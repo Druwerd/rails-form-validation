@@ -1,4 +1,6 @@
 class UserSessionsController < ApplicationController
+  before_action :authenticate_user!, only: [:destroy]
+
   def new
     @user = User.new(email: saved_email)
   end
@@ -17,12 +19,8 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    if current_user.blank? || current_user.id != params[:id].to_i
-      render plain: '401 Unauthorized', status: :unauthorized
-    else
-      session[:user_id] = nil
-      redirect_to root_path
-    end
+    session[:user_id] = nil
+    redirect_to root_path
   end
 
   private
