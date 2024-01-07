@@ -1,24 +1,50 @@
-# README
+# Rails Realtime Password form Validation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a sample app that allows a user to sign and set password.
+Password requirements are displayed on the page as the user types.
 
-Things you may want to cover:
+## Table of Contents
 
-* Ruby version
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Tests](#tests)
+- [Technologies Used](#technologies-used)
 
-* System dependencies
+## Getting Started
 
-* Configuration
+### Prerequisites
 
-* Database creation
+- Ruby 3.2.2
+- Bundler
+- Node
+- Postgres
 
-* Database initialization
+### Installation
 
-* How to run the test suite
+```sh
+bundle
+bin/setup
+rails assets:precompile
+bin/dev
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Usage
 
-* Deployment instructions
+User signup:
+http://localhost:3000/users/new
 
-* ...
+User login: http://localhost:3000/user_sessions/new
+
+## Tests
+
+This project is tested using RSpec.
+To run tests run RSpec from a terminal: `rspec`
+
+## Technologies Used
+
+- Rails
+- Postgres
+- Bootstrap
+- Stimulus
