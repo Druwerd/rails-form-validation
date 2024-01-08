@@ -11,7 +11,7 @@ export default class extends Controller {
 
   initialize() {
     // use debounce so backend validations are called when a user stops typing
-    this.handleChange = debounce(this.handleChange, 100).bind(this);
+    this.handleChange = debounce(this.handleChange, 500).bind(this);
   }
 
   handleChange(event) {

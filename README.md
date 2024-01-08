@@ -44,7 +44,7 @@ Type email and password and see password requirements appear:
 
 Meet all the requirements and errors will go away:
 
-![valid password](./docs/images/valid_pasword.png)
+![valid password](./docs/images/valid_password.png)
 
 Click 'Create User' and user will be created and logged in:
 
@@ -104,7 +104,7 @@ export default class extends Controller {
 
   initialize() {
     // use debounce so backend validations are called when a user stops typing
-    this.handleChange = debounce(this.handleChange, 100).bind(this);
+    this.handleChange = debounce(this.handleChange, 500).bind(this);
   }
 
   handleChange(event) {
