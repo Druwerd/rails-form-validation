@@ -69,29 +69,32 @@ The signup form is wired up to a Stimulus controller. Password field actions are
 
 [Form](./app/views/users/_form.html.erb):
 ```erb
-<!-- Adds target to form to send data to Stimulus controller -->
-<%= form_with(model: user, class: 'needs-validation', novalidate: true, data: { form_validation_target: "form" }) do |f| %>
-  ...
-  <div class="form-group">
-    <%= f.label :password %><br>
-    <!-- Calls handleChange on Stimulus controller when the field changes -->
-    <%= f.password_field :password, class: 'form-control', value: user.password, data: { action: "form-validation#handleChange" }, required: true %>
-  </div>
+<!-- Set Stimulus controller and url endpoint for validations -->
+<div class="form-container" data-controller="form-validation" data-form-validation-url-value="<%= form_validations_users_path %>">
+  <!-- Adds target to form to send data to Stimulus controller -->
+  <%= form_with(model: user, class: 'needs-validation', novalidate: true, data: { form_validation_target: "form" }) do |f| %>
+    ...
+    <div class="form-group">
+      <%= f.label :password %><br>
+      <!-- Calls handleChange on Stimulus controller when the field changes -->
+      <%= f.password_field :password, class: 'form-control', value: user.password, data: { action: "form-validation#handleChange" }, required: true %>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :password_confirmation %><br>
-    <!-- Calls handleChange on Stimulus controller when the field changes -->
-    <%= f.password_field :password_confirmation, class: 'form-control', value: user.password_confirmation, data: { action: "form-validation#handleChange" }, required: true %>
-  </div>
+    <div class="form-group">
+      <%= f.label :password_confirmation %><br>
+      <!-- Calls handleChange on Stimulus controller when the field changes -->
+      <%= f.password_field :password_confirmation, class: 'form-control', value: user.password_confirmation, data: { action: "form-validation#handleChange" }, required: true %>
+    </div>
 
-  <p>
-    <%= f.submit class: 'btn btn-primary' %>
-  </p>
-  <!-- Errors will be displayed here -->
-  <div id="error_explanation">
-    <%= render 'form_errors', user: user %>
-  </div>
-<% end %>
+    <p>
+      <%= f.submit class: 'btn btn-primary' %>
+    </p>
+    <!-- Sets output for Stimulus controller. Errors will be displayed here -->
+    <div class="error-explanations" data-form-validation-target="output">
+      <%= render 'form_errors', user: user %>
+    </div>
+  <% end %>
+</div>
 ```
 
 The Stimulus controller call a Rails backend endpoint to validate the form data and update the page.
