@@ -3,19 +3,21 @@ const debounce = require("lodash.debounce");
 
 // Connects to data-controller="form-validation"
 export default class extends Controller {
-  // connect() {
-  // }
+  connect() {
+  }
 
   static targets = ["form", "output"];
   static values = { url: String };
 
   initialize() {
+    // use debounce so backend validations are called when a user stops typing
     this.handleChange = debounce(this.handleChange, 100).bind(this);
   }
 
   handleChange(event) {
     const formData = new FormData(this.formTarget)
-    let input = event.target;
+
+    // call the backend form validation endpoint
     fetch(this.urlValue, {
       method: "POST",
       headers: {
@@ -25,22 +27,8 @@ export default class extends Controller {
     })
     .then(response => response.text())
     .then((html) => {
+      // update the page with errors html
       document.querySelector('#error_explanation').innerHTML = html
-      input = document.getElementById(input.id);
-      this.moveCursorToEnd(input);
     })
-  }
-
-  // https://css-tricks.com/snippets/javascript/move-cursor-to-end-of-input/
-  moveCursorToEnd(element) {
-    if (typeof element.selectionStart == "number") {
-      element.focus();
-      element.selectionStart = element.selectionEnd = element.value.length;
-    } else if (typeof element.createTextRange != "undefined") {
-      element.focus();
-      var range = element.createTextRange();
-      range.collapse(false);
-      range.select();
-    }
   }
 }
