@@ -1,7 +1,7 @@
 # Rails Realtime Password form Validation
 
-This is a sample app that allows a user to sign and set password.
-Password requirements are displayed on the page as the user types.
+This is a sample app that allows a user to signup and set a password.
+Password requirements are displayed dynamically on the page as the user types.
 
 ## Table of Contents
 
@@ -63,9 +63,9 @@ To run tests run RSpec from a terminal: `rspec`
 - Stimulus
 
 ## Design
-Dynamic form validation are done using a Stimulus controller and Rails backend endpoint that returns validations errors as html.
+Dynamic form validation is done using a Stimulus controller and a Rails backend endpoint that returns validation errors as a html snippet.
 
-The signup form is wired up to a Stimulus controller. Password fields are set to listen for input action and trigger `handleChange` on the Stimulus controller.
+The signup form is wired up to a Stimulus controller. Password field actions are set to listen for input changes and trigger `handleChange` on the Stimulus controller.
 
 [Form](./app/views/users/_form.html.erb):
 ```erb
@@ -74,13 +74,13 @@ The signup form is wired up to a Stimulus controller. Password fields are set to
   ...
   <div class="form-group">
     <%= f.label :password %><br>
-    <!-- Calls handleChange on Stimulus controller -->
+    <!-- Calls handleChange on Stimulus controller when the field changes -->
     <%= f.password_field :password, class: 'form-control', value: user.password, data: { action: "form-validation#handleChange" }, required: true %>
   </div>
 
   <div class="form-group">
     <%= f.label :password_confirmation %><br>
-    <!-- Calls handleChange on Stimulus controller -->
+    <!-- Calls handleChange on Stimulus controller when the field changes -->
     <%= f.password_field :password_confirmation, class: 'form-control', value: user.password_confirmation, data: { action: "form-validation#handleChange" }, required: true %>
   </div>
 
@@ -108,6 +108,7 @@ export default class extends Controller {
   }
 
   handleChange(event) {
+    // get all the data from the form so we can send it to backend
     const formData = new FormData(this.formTarget)
 
     // call the backend form validation endpoint
@@ -127,7 +128,7 @@ export default class extends Controller {
 }
 ```
 
-The Rails backend validation controller users the validations defined in the Model. This way password requirements are defined on the backend only.
+The Rails backend validation controller uses the validations defined in the Model. This allows password requirements to be defined on the backend only, keeping the code DRY.
 
 [Form Validations Controller](./app/controllers/form_validations/users_controller.rb):
 ```ruby
