@@ -125,7 +125,7 @@ export default class extends Controller {
     .then(response => response.text())
     .then((html) => {
       // update the page with errors html
-      document.querySelector('#error_explanation').innerHTML = html
+      this.outputTarget.innerHTML = html;
     })
   }
 }
